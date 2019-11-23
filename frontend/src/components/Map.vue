@@ -1,5 +1,23 @@
 <template>
   <div class="main">
+    <header>
+      <nav>
+        <ul class="topmenu">
+          <li>
+            <a href="/">Главная</a>
+          </li>
+          <li>
+            <a href="/map">Карта обращений</a>
+          </li>
+          <li>
+            <a href="/payment">Платежи</a>
+          </li>
+          <li>
+            <a href="/login">Контакты</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
     <div class="map">
       <img
         @click="click"
@@ -27,7 +45,11 @@
     <div class="icons">
       <ul v-for="icon in icons" :key="icons.indexOf(icon)">
         <li style="inline-block">
-          <button type="text" @click="changeIcon(icon.icon)">
+          <button
+            type="button"
+            class="btn btn-link"
+            @click="changeIcon(icon.icon)"
+          >
             <img :src="icon.icon" class="icon" />
           </button>
           <p>{{ icon.name }}</p>
@@ -94,11 +116,91 @@ li {
 }
 .icons {
   position: absolute;
-  top: 10px;
+  top: 100px;
   right: 100px;
 }
 .icon {
   width: 40px;
   height: 40px;
+}
+
+header {
+  background-color: #babfc7;
+  text-align: center;
+}
+
+header a {
+  display: block;
+}
+.topmenu:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.topmenu > li {
+  width: 25%;
+  float: left;
+  position: relative;
+  font-family: "Open Sans", sans-serif;
+}
+
+.topmenu > li > a {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  color: #5e5e5e;
+  padding: 15px 30px;
+  min-width: 124px;
+}
+
+.topmenu li a:hover {
+  color: rgb(15, 12, 2);
+}
+
+.submenu-link:after {
+  content: "\f107";
+  font-family: "FontAwesome";
+  color: inherit;
+  margin-left: 10px;
+}
+
+.submenu {
+  background: #9fa3a9;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 5;
+  width: 180px;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: 0 0;
+  transition: 0.5s ease-in-out;
+}
+
+.submenu a {
+  color: white;
+  text-align: left;
+  padding: 12px 15px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.submenu li:last-child a {
+  border-bottom: none;
+}
+
+.topmenu > li:hover .submenu {
+  opacity: 1;
+  transform: scaleY(1);
+}
+nav {
+  display: table;
+  margin: 0 auto;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
 }
 </style>

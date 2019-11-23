@@ -8,21 +8,10 @@
             <a href="/">Главная</a>
           </li>
           <li>
-            <a href="/about" class="submenu-link" target="_blank">Обращения</a>
-            <ul class="submenu">
-              <li>
-                <a href="/history">1</a>
-              </li>
-              <li>
-                <a href="/service">2</a>
-              </li>
-              <li>
-                <a href="/soglasie" target="_blank">3</a>
-              </li>
-            </ul>
+            <a href="/map">Карта обращений</a>
           </li>
           <li>
-            <a href="/contacts">ФЫАВ</a>
+            <a href="/payment">Платежи</a>
           </li>
           <li>
             <a href="/login">Контакты</a>
@@ -32,11 +21,24 @@
     </header>
 
     <form>
-      <div v-if="showInfo == false" class="login" style="margin: 200px;padding-left: 400px;">
-        <div class="col-3" style="background-color: gray;border-radius: 33px; padding-bottom: 15px">
+      <div
+        v-if="showInfo == false"
+        class="login"
+        style="margin: 200px;padding-left: 400px;"
+      >
+        <div
+          class="col-3"
+          style="background-color: gray;border-radius: 33px; padding-bottom: 15px"
+        >
           <div class="form-group">
-           <label for="exampleFormControlSelect1">Выберите населенный пункт</label>
-            <select class="form-control" id="exampleFormControlSelect1" v-model="select">
+            <label for="exampleFormControlSelect1"
+              >Выберите населенный пункт</label
+            >
+            <select
+              class="form-control"
+              id="exampleFormControlSelect1"
+              v-model="select"
+            >
               <option></option>
               <option>Сургут</option>
               <option>Белый Яр</option>
@@ -48,12 +50,18 @@
           <div class="form-group">
             <label for="exampleInputEmail1">Введите адрес</label>
             <select class="form-control" id="exampleInputEmail1">
-              <option v-for="item in chose" :key="chose.indexOf(item)">{{item}}</option>
+              <option v-for="item in chose" :key="chose.indexOf(item)">{{
+                item
+              }}</option>
             </select>
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Введите дом</label>
-            <input type="number" class="form-control" id="exampleInputPassword1" />
+            <input
+              type="number"
+              class="form-control"
+              id="exampleInputPassword1"
+            />
           </div>
           <div class="form-group">
             <label for="exampleInputEmail">Введите квартиру</label>
@@ -69,11 +77,16 @@
             class="btn btn-primary"
             style="margin-left: 30px"
             @click="change()"
-          >Узнать платеж</button>
+          >
+            Узнать платеж
+          </button>
         </div>
       </div>
       <div v-else class="login" style="margin: 200px;padding-left: 400px;">
-        <div class="col-8" style="background-color: gray;border-radius: 33px; padding-bottom: 15px">
+        <div
+          class="col-8"
+          style="background-color: gray;border-radius: 33px; padding-bottom: 15px"
+        >
           <div class="form-group"></div>
           <div class="form-row">
             <div class="form-group col">
@@ -111,7 +124,7 @@
             </div>
           </div>
 
-         <div class="form-row">
+          <div class="form-row">
             <div class="form-group col">
               <label for="inputState">Обслуживание системы наблюдения:</label>
             </div>
@@ -119,7 +132,7 @@
               <div id="result">0 руб.</div>
             </div>
           </div>
-          
+
           <div class="form-row">
             <div class="form-group col">
               <label for="inputState">Обслуживание шлагбаумов:</label>
@@ -173,10 +186,15 @@
               <div id="result">0 руб.</div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" style="margin-left: 190px">Оплатить</button>
-          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="margin-left: 190px"
+          >
+            Оплатить
+          </button>
         </div>
-      
+      </div>
     </form>
   </div>
 </template>
@@ -188,38 +206,34 @@ export default {
     return {
       showInfo: false,
       select: null,
-      surgut:['Ленина', 'Маяковского', 'Мира', 'Губкина' , 'Чехова'],
-      whiteyar:['Совхозная','Фадеева','Лесная','Некрасова'],
-      langepas:['Звездный проезд','Комсомольская','Минская','Мира'],
-      lyantor:['Магистральная','Брусничный','Дружбы Народов','Кедровый'],
-      solnechniy:['Космонавтов','Молодежная','Советская','Строителей'],
+      surgut: ["Ленина", "Маяковского", "Мира", "Губкина", "Чехова"],
+      whiteyar: ["Совхозная", "Фадеева", "Лесная", "Некрасова"],
+      langepas: ["Звездный проезд", "Комсомольская", "Минская", "Мира"],
+      lyantor: ["Магистральная", "Брусничный", "Дружбы Народов", "Кедровый"],
+      solnechniy: ["Космонавтов", "Молодежная", "Советская", "Строителей"],
       chose: []
     };
   },
-  watch:{
-    select(){
-        if(this.select == 'Сургут'){
-            this.chose = []
-            this.chose = this.surgut
-        }
-        else if(this.select =='Белый Яр'){
-          this.chose = []
-          this.chose = this.whiteyar
-        }
-        else if(this.select =='Лангепас'){
-          this.chose = []
-          this.chose = this.langepas
-        }
-        else if(this.select =='Лянтор'){
-          this.chose = []
-          this.chose = this.lyantor
-        }
-        else if(this.select =='Солнечный'){
-          this.chose = []
-          this.chose = this.solnechniy
-        }else{
-          this.chose = []
-        }
+  watch: {
+    select() {
+      if (this.select == "Сургут") {
+        this.chose = [];
+        this.chose = this.surgut;
+      } else if (this.select == "Белый Яр") {
+        this.chose = [];
+        this.chose = this.whiteyar;
+      } else if (this.select == "Лангепас") {
+        this.chose = [];
+        this.chose = this.langepas;
+      } else if (this.select == "Лянтор") {
+        this.chose = [];
+        this.chose = this.lyantor;
+      } else if (this.select == "Солнечный") {
+        this.chose = [];
+        this.chose = this.solnechniy;
+      } else {
+        this.chose = [];
+      }
     }
   },
   methods: {
