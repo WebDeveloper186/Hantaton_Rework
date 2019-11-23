@@ -55,6 +55,15 @@
           <p>{{ icon.name }}</p>
         </li>
       </ul>
+      <button class="btn btn-link" @click="show">Test popup</button>
+    </div>
+    <div
+      class="popup"
+      style="position: absolute; top: 25%; left: 50%; z-index:999"
+      v-if="showPopup == true"
+    >
+      <h1>123</h1>
+      <span>test</span>
     </div>
   </div>
 </template>
@@ -64,6 +73,7 @@ export default {
   name: "Map",
   data() {
     return {
+      showPopup: false,
       points: [],
       topCoords: 0,
       icons: this.$store.state.icons,
@@ -98,6 +108,12 @@ export default {
       var image = document.getElementById("marker");
       this.select = icon;
       image.src = icon;
+    },
+    show() {
+      this.showPopup = true;
+      var block = document.getElementsByClassName("map");
+      document.body.style.overflow = "hidden";
+      block.style.filter = "blur(5px)";
     }
   }
 };
