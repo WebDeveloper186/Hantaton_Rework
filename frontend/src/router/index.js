@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Payment from '@/components/Payment'
 import Index from '@/components/Index'
 import MapMain from '@/components/Map'
-import Info from '@/components/Info'
 
 Vue.use(VueRouter)
 
@@ -22,11 +21,6 @@ export default new VueRouter({
             path: '/map',
             component: MapMain,
             name: 'MapMain'
-        },
-        {
-            path: '/info',
-            component: Info,
-            name: 'Info'
         }
     ]
 })

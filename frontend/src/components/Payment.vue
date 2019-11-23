@@ -32,7 +32,7 @@
     </header>
 
     <form>
-      <div class="login" style="margin: 200px;padding-left: 400px;">
+      <div v-if="showInfo == false" class="login" style="margin: 200px;padding-left: 400px;">
         <div class="col-3" style="background-color: gray;border-radius: 33px; padding-bottom: 15px">
           <div class="form-group">
             <label for="exampleInputEmail1">Введите адрес</label>
@@ -60,8 +60,27 @@
             type="submit"
             class="btn btn-primary"
             style="margin-left: 30px"
-            href="/"
+            @click="change()"
           >Узнать платеж</button>
+        </div>
+      </div>
+      <div v-else class="login" style="margin: 200px;padding-left: 400px;">
+        <div class="col-3" style="background-color: gray;border-radius: 33px; padding-bottom: 15px">
+          <div class="form-group"></div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Введите дом</label>
+            <input type="number" class="form-control" id="exampleInputPassword1" />
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail">Введите квартиру</label>
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary" style="margin-left: 30px">Узнать платеж</button>
         </div>
       </div>
     </form>
@@ -70,7 +89,17 @@
 
 <script>
 export default {
-  name: "Payment"
+  name: "Payment",
+  data() {
+    return {
+      showInfo: false
+    };
+  },
+  methods: {
+    change() {
+      this.showInfo = !this.showInfo;
+    }
+  }
 };
 </script>
 
