@@ -1,6 +1,8 @@
 <template>
   <div class="main">
-    <div class="map"><img @click="click" src="" alt="Карта" /></div>
+    <div class="map">
+      <img @click="click" src alt="Карта" />
+    </div>
   </div>
 </template>
 
@@ -11,9 +13,7 @@ export default {
     return {};
   },
   methods: {
-    click(e) {
-        
-    }
+    click() {}
   }
 };
 </script>
