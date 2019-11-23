@@ -76,7 +76,7 @@
             </select>
           </div>
           <button
-            type="submit"
+            type="text"
             class="btn btn-primary"
             style="margin-left: 30px"
             @click="change()"
@@ -352,21 +352,23 @@ export default {
         this.kv = [];
       }
     },
+    created() {
+      axios
+        .post("127.0.0.1:5000/api/getPaymentInfo", {
+          street: "МИРА",
+          house: "55/2",
+          flat: "801"
+        })
+        .then(response => {
+          alert(response.data);
+        })
+        .catch(error => {
+          alert(error);
+        });
+    },
     methods: {
       change() {
-        this.showInfo = !this.showInfo;
-        axios
-          .post("server:5000/api/getPaymentInfo", {
-            street: "МИРА",
-            house: "55/2",
-            flat: "801"
-          })
-          .then(response => {
-            alert(response.data);
-          })
-          .catch(error => {
-            alert(error);
-          });
+        this.showInfo = true;
       }
     }
   }
