@@ -1,0 +1,232 @@
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'Companies'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Companies`;
+		
+CREATE TABLE `Companies` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `name` VARCHAR(100) NULL DEFAULT NULL,
+  `id_Contacts` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Contacts'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Contacts`;
+		
+CREATE TABLE `Contacts` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `address` VARCHAR(255) NULL DEFAULT NULL,
+  `telephone` VARCHAR(40) NULL DEFAULT NULL,
+  `email` VARCHAR(30) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Requisites'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Requisites`;
+		
+CREATE TABLE `Requisites` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `bill_number` VARCHAR(50) NULL DEFAULT NULL,
+  `bank_id` INTEGER NULL DEFAULT NULL,
+  `BIK` VARCHAR(50) NULL DEFAULT NULL,
+  `kor_bill` VARCHAR(50) NULL DEFAULT NULL,
+  `INN` VARCHAR(50) NULL DEFAULT NULL,
+  `KPP` VARCHAR(50) NULL DEFAULT NULL,
+  `OGRN` VARCHAR(50) NULL DEFAULT NULL,
+  `OKPO` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Clients'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Clients`;
+		
+CREATE TABLE `Clients` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `login` VARCHAR(50) NULL DEFAULT NULL,
+  `password` VARCHAR(50) NULL DEFAULT NULL,
+  `name` VARCHAR(200) NULL DEFAULT NULL,
+  `id_Client_Address` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Counters'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Counters`;
+		
+CREATE TABLE `Counters` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `new field` INTEGER NULL DEFAULT NULL,
+  `last_verification_date` DATE NULL DEFAULT NULL,
+  `id_Counter_Types` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Requisites_and_companies'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Requisites_and_companies`;
+		
+CREATE TABLE `Requisites_and_companies` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `id_Requisites` INTEGER NULL DEFAULT NULL,
+  `id_Companies` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Client_Address'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Client_Address`;
+		
+CREATE TABLE `Client_Address` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `street` VARCHAR(100) NULL DEFAULT NULL,
+  `house_number` INTEGER NULL DEFAULT NULL,
+  `city` VARCHAR(100) NULL DEFAULT NULL,
+  `flat` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'Requests'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Requests`;
+		
+CREATE TABLE `Requests` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `date` DATE NULL DEFAULT NULL,
+  `description` MEDIUMTEXT(4000) NULL DEFAULT NULL,
+  `deadline` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'History_counters'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `History_counters`;
+		
+CREATE TABLE `History_counters` (
+  `date` DATE NULL DEFAULT NULL,
+  `id_Counters` INTEGER NULL DEFAULT NULL,
+  `value` FLOAT NULL DEFAULT NULL,
+  PRIMARY KEY ()
+);
+
+-- ---
+-- Table 'Counter_Types'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `Counter_Types`;
+		
+CREATE TABLE `Counter_Types` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `type` VARCHAR(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'proxy_client_company'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `proxy_client_company`;
+		
+CREATE TABLE `proxy_client_company` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `id_Client_Address` INTEGER NULL DEFAULT NULL,
+  `id_Counters` INTEGER NULL DEFAULT NULL,
+  `id_Requests` INTEGER NULL DEFAULT NULL,
+  `id_Companies` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys 
+-- ---
+
+ALTER TABLE `Companies` ADD FOREIGN KEY (id_Contacts) REFERENCES `Contacts` (`id`);
+ALTER TABLE `Clients` ADD FOREIGN KEY (id_Client_Address) REFERENCES `Client_Address` (`id`);
+ALTER TABLE `Counters` ADD FOREIGN KEY (id_Counter_Types) REFERENCES `Counter_Types` (`id`);
+ALTER TABLE `Requisites_and_companies` ADD FOREIGN KEY (id_Requisites) REFERENCES `Requisites` (`id`);
+ALTER TABLE `Requisites_and_companies` ADD FOREIGN KEY (id_Companies) REFERENCES `Companies` (`id`);
+ALTER TABLE `History_counters` ADD FOREIGN KEY (id_Counters) REFERENCES `Counters` (`id`);
+ALTER TABLE `proxy_client_company` ADD FOREIGN KEY (id_Client_Address) REFERENCES `Client_Address` (`id`);
+ALTER TABLE `proxy_client_company` ADD FOREIGN KEY (id_Counters) REFERENCES `Counters` (`id`);
+ALTER TABLE `proxy_client_company` ADD FOREIGN KEY (id_Requests) REFERENCES `Requests` (`id`);
+ALTER TABLE `proxy_client_company` ADD FOREIGN KEY (id_Companies) REFERENCES `Companies` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `Companies` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Contacts` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Requisites` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Clients` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Counters` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Requisites_and_companies` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Client_Address` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Requests` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `History_counters` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `Counter_Types` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `proxy_client_company` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `Companies` (`id`,`name`,`id_Contacts`) VALUES
+-- ('','','');
+-- INSERT INTO `Contacts` (`id`,`address`,`telephone`,`email`) VALUES
+-- ('','','','');
+-- INSERT INTO `Requisites` (`id`,`bill_number`,`bank_id`,`BIK`,`kor_bill`,`INN`,`KPP`,`OGRN`,`OKPO`) VALUES
+-- ('','','','','','','','','');
+-- INSERT INTO `Clients` (`id`,`login`,`password`,`name`,`id_Client_Address`) VALUES
+-- ('','','','','');
+-- INSERT INTO `Counters` (`id`,`new field`,`last_verification_date`,`id_Counter_Types`) VALUES
+-- ('','','','');
+-- INSERT INTO `Requisites_and_companies` (`id`,`id_Requisites`,`id_Companies`) VALUES
+-- ('','','');
+-- INSERT INTO `Client_Address` (`id`,`street`,`house_number`,`city`,`flat`) VALUES
+-- ('','','','','');
+-- INSERT INTO `Requests` (`id`,`date`,`description`,`deadline`) VALUES
+-- ('','','','');
+-- INSERT INTO `History_counters` (`date`,`id_Counters`,`value`) VALUES
+-- ('','','');
+-- INSERT INTO `Counter_Types` (`id`,`type`) VALUES
+-- ('','');
+-- INSERT INTO `proxy_client_company` (`id`,`id_Client_Address`,`id_Counters`,`id_Requests`,`id_Companies`) VALUES
+-- ('','','','','');
