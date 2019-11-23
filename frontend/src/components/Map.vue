@@ -13,7 +13,7 @@
             <a href="/payment">Платежи</a>
           </li>
           <li>
-            <a href="/login">Контакты</a>
+            <a href="/contacts">Контакты</a>
           </li>
         </ul>
       </nav>
