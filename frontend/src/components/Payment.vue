@@ -49,7 +49,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Введите адрес</label>
-            <select class="form-control" id="exampleInputEmail1">
+            <select class="form-control" id="exampleInputEmail1" v-model="adress">
               <option v-for="item in chose" :key="chose.indexOf(item)">{{
                 item
               }}</option>
@@ -57,20 +57,19 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Введите дом</label>
-            <input
-              type="number"
-              class="form-control"
-              id="exampleInputPassword1"
-            />
+            <select class="form-control" id="exampleInputEmail1" v-model="home">
+              <option v-for="item in hati" :key="hati.indexOf(item)">{{
+                item
+              }}</option>
+            </select>
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail">Введите квартиру</label>
-            <input
-              type="email"
-              class="form-control"
-              id="exampleInputEmail"
-              aria-describedby="emailHelp"
-            />
+            <label for="exampleInputPassword1">Введите квартиру</label>
+            <select class="form-control" id="exampleInputEmail1">
+              <option v-for="item in kv" :key="kv.indexOf(item)">{{
+                item
+              }}</option>
+            </select>
           </div>
           <button
             type="submit"
@@ -206,12 +205,47 @@ export default {
     return {
       showInfo: false,
       select: null,
+      adress: null,
+      home: null,
       surgut: ["Ленина", "Маяковского", "Мира", "Губкина", "Чехова"],
       whiteyar: ["Совхозная", "Фадеева", "Лесная", "Некрасова"],
       langepas: ["Звездный проезд", "Комсомольская", "Минская", "Мира"],
       lyantor: ["Магистральная", "Брусничный", "Дружбы Народов", "Кедровый"],
       solnechniy: ["Космонавтов", "Молодежная", "Советская", "Строителей"],
-      chose: []
+      
+      
+      hatalenina:['18/1','22','24/3','59'],
+      hatamayak:['7','9','9/1','16'],
+      hatamira:['3','4','4/1','6'],
+      hatagubka:['14','15','16','18'],
+      hatacheh:['1','9'],
+
+      kvlen18:['1','2','3','4'],
+      kvlen22:['1','2','3','4'],
+      kvlen24_3:['1','2','3','4'],
+      kvlen59:['3','4','5','6'],
+
+      kvmay7:['1','2','3','4'],
+      kvmay9:['1','2','3','4'],
+      kvmay9_1:['1','2','3','4'],
+      kvmay16:['1','10','11','13'],
+
+      kvmir3:['1','2','3','4'],
+      kvmir4:['1','2','3','4'],
+      kvmir4_1:['1','2','3','4'],
+      kvmir6:['2','3','4','5'],
+
+      kvguba14:['1','2','3','4'],
+      kvguba15:['1','2','3','4'],
+      kvguba16:['1','2','3','4'],
+      kvguba18:['1','2','3','4'],
+
+      kvcheh1:['1','2','3','4'],
+      kvcheh9:['1','2','3','4'],
+
+      chose: [],
+      hati: [],
+      kv: [],
     };
   },
   watch: {
@@ -234,14 +268,107 @@ export default {
       } else {
         this.chose = [];
       }
-    }
-  },
+    },
+    adress() {
+      if (this.adress == "Ленина") {
+        this.hati = [];
+        this.hati = this.hatalenina;
+      } else if (this.adress == "Маяковского") {
+        this.hati = [];
+        this.hati = this.hatamayak;
+      } else if (this.adress == "Мира") {
+        this.hati = [];
+        this.hati = this.hatamira;
+      } else if (this.adress == "Губкина") {
+        this.hati = [];
+        this.hati = this.hatagubka;
+      } else if (this.adress == "Чехова") {
+        this.hati = [];
+        this.hati = this.hatacheh;
+      } else {
+        this.hati = [];
+      }
+    },
+    home() {
+      if (this.home == "18/1") {
+        this.kv = [];
+        this.kv = this.kvlen18;
+      } else if (this.home == "22") {
+        this.kv = [];
+        this.kv = this.kvlen22;
+      }
+        else if (this.home == "24/3") {
+        this.kv = [];
+        this.kv = this.kvlen24_3;
+      } else if (this.home == "59") {
+        this.kv = [];
+        this.kv = this.kvlen59;
+      } else if (this.home == "7") {
+        this.kv = [];
+        this.kv = this.kvmay7;
+      } else if (this.home == "9") {
+        this.kv = [];
+        this.kv = this.kvmay9;
+      } 
+       else if (this.home == "9/1") {
+        this.kv = [];
+        this.kv = this.kvmay9_1;
+      } 
+       else if (this.home == "16") {
+        this.kv = [];
+        this.kv = this.kvmay16;
+      } 
+       else if (this.home == "3") {
+        this.kv = [];
+        this.kv = this.kvmir3;
+      } 
+      else if (this.home == "4") {
+        this.kv = [];
+        this.kv = this.kvmir4;
+      } 
+      else if (this.home == "4/1") {
+        this.kv = [];
+        this.kv = this.kvmir4_1;
+      } 
+      else if (this.home == "6") {
+        this.kv = [];
+        this.kv = this.kvmir6;
+      } 
+       else if (this.home == "14") {
+        this.kv = [];
+        this.kv = this.kvguba14;
+      } 
+       else if (this.home == "15") {
+        this.kv = [];
+        this.kv = this.kvguba15;
+      } 
+       else if (this.home == "16") {
+        this.kv = [];
+        this.kv = this.kvguba16;
+      } 
+       else if (this.home == "18") {
+        this.kv = [];
+        this.kv = this.kvguba18;
+      } 
+        else if (this.home == "1") {
+        this.kv = [];
+        this.kv = this.kvcheh1;
+      } 
+        else if (this.home == "9") {
+        this.kv = [];
+        this.kv = this.kvcheh9;
+      } 
+      else {
+        this.kv = [];
+      }
+    },
   methods: {
     change() {
       this.showInfo = !this.showInfo;
     }
-  }
-};
+  },
+  },
+  };
 </script>
 
 <style scoped>
