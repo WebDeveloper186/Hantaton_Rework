@@ -8,6 +8,7 @@ app = Flask(__name__)
 flask_cors.CORS(app)
 
 
+
 def _float(value):
     if value:
         return float(value['value'].replace('\xa0', '').replace(',', '.'))
@@ -18,13 +19,14 @@ def parse(street, house, flat):
     address = {'street': street, 'house': house, 'flat': flat}
     session = requests.Session()
 
-    first_page = session.get(
-        'https://pay.rkc-gku.ru/app_main_pay/Account.aspx/AddComm')
-    first_page_parse = bs4.BeautifulSoup(first_page.content, "lxml")
-    cities = first_page_parse.find(id='cityId')
-    city_list = cities.find_all('option')
-    for city in city_list:
-        print(city['value'], city.text)
+    result = []
+    # first_page = session.get(
+    #     'https://pay.rkc-gku.ru/app_main_pay/Account.aspx/AddComm')
+    # first_page_parse = bs4.BeautifulSoup(first_page.content, "lxml")
+    # cities = first_page_parse.find(id='cityId')
+    # city_list = cities.find_all('option')
+    # for city in city_list:
+    #     print(city['value'], city.text)
 
     services_by_city = session.post(
         'https://pay.rkc-gku.ru/app_main_pay/Address.aspx/ServicesByCity',
@@ -85,25 +87,29 @@ def parse(street, house, flat):
                                         id='AccountCurrMonthPaySumInfo'))
                                     account_payed_peni = _float(data_parse.find(
                                         id='AccountCurrMonthPeniSumInfo'))
-                                    response = json.dumps({"service":service['Text'],
+                                    '''response = json.dumps({"service":service['Text'],
                                                            "organization": organization['Text'],
                                                            "balance": account_balance,
                                                            "peni": account_peni,
                                                            "payed": account_payed,
                                                            "payed_peni":account_payed_peni})
-                                    result = []
-                                    result.append(response)
-        return result
+                                    print("response type: ",type(response))'''
+                                    
+                                    result.append({"service":service['Text'],
+                                                           "organization": organization['Text'],
+                                                           "balance": account_balance,
+                                                           "peni": account_peni,
+                                                           "payed": account_payed,
+                                                           "payed_peni":account_payed_peni})
+    return str(result)
 
-
-@app.route('/api/getPaymentInfo', methods=['POST'])
+@app.route('/api/getPaymentInfo')
 def payment_info():
     content = request.json
     street = content['street']
     house = content['house']
     flat = content['flat']
     return parse(street, house, flat)
-
 
 if __name__ == '__main__':
     app.config['JSON_AS_ASCII'] = False

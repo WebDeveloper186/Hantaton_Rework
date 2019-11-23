@@ -1,5 +1,5 @@
 <template>
-  <div>index</div>
+  <div>ычи</div>
 </template>
 
 <script>

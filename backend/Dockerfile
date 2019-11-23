@@ -19,4 +19,4 @@ COPY . /usr/src/app
 
 # run server
 ENTRYPOINT ["python"]
-CMD ["index.py"]
+CMD ["app.py"]

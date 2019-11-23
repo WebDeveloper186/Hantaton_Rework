@@ -49,7 +49,11 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Введите адрес</label>
-            <select class="form-control" id="exampleInputEmail1" v-model="adress">
+            <select
+              class="form-control"
+              id="exampleInputEmail1"
+              v-model="adress"
+            >
               <option v-for="item in chose" :key="chose.indexOf(item)">{{
                 item
               }}</option>
@@ -199,6 +203,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Payment",
   data() {
@@ -212,40 +217,39 @@ export default {
       langepas: ["Звездный проезд", "Комсомольская", "Минская", "Мира"],
       lyantor: ["Магистральная", "Брусничный", "Дружбы Народов", "Кедровый"],
       solnechniy: ["Космонавтов", "Молодежная", "Советская", "Строителей"],
-      
-      
-      hatalenina:['18/1','22','24/3','59'],
-      hatamayak:['7','9','9/1','16'],
-      hatamira:['3','4','4/1','6'],
-      hatagubka:['14','15','16','18'],
-      hatacheh:['1','9'],
 
-      kvlen18:['1','2','3','4'],
-      kvlen22:['1','2','3','4'],
-      kvlen24_3:['1','2','3','4'],
-      kvlen59:['3','4','5','6'],
+      hatalenina: ["18/1", "22", "24/3", "59"],
+      hatamayak: ["7", "9", "9/1", "16"],
+      hatamira: ["3", "4", "4/1", "6"],
+      hatagubka: ["14", "15", "16", "18"],
+      hatacheh: ["1", "9"],
 
-      kvmay7:['1','2','3','4'],
-      kvmay9:['1','2','3','4'],
-      kvmay9_1:['1','2','3','4'],
-      kvmay16:['1','10','11','13'],
+      kvlen18: ["1", "2", "3", "4"],
+      kvlen22: ["1", "2", "3", "4"],
+      kvlen24_3: ["1", "2", "3", "4"],
+      kvlen59: ["3", "4", "5", "6"],
 
-      kvmir3:['1','2','3','4'],
-      kvmir4:['1','2','3','4'],
-      kvmir4_1:['1','2','3','4'],
-      kvmir6:['2','3','4','5'],
+      kvmay7: ["1", "2", "3", "4"],
+      kvmay9: ["1", "2", "3", "4"],
+      kvmay9_1: ["1", "2", "3", "4"],
+      kvmay16: ["1", "10", "11", "13"],
 
-      kvguba14:['1','2','3','4'],
-      kvguba15:['1','2','3','4'],
-      kvguba16:['1','2','3','4'],
-      kvguba18:['1','2','3','4'],
+      kvmir3: ["1", "2", "3", "4"],
+      kvmir4: ["1", "2", "3", "4"],
+      kvmir4_1: ["1", "2", "3", "4"],
+      kvmir6: ["2", "3", "4", "5"],
 
-      kvcheh1:['1','2','3','4'],
-      kvcheh9:['1','2','3','4'],
+      kvguba14: ["1", "2", "3", "4"],
+      kvguba15: ["1", "2", "3", "4"],
+      kvguba16: ["1", "2", "3", "4"],
+      kvguba18: ["1", "2", "3", "4"],
+
+      kvcheh1: ["1", "2", "3", "4"],
+      kvcheh9: ["1", "2", "3", "4"],
 
       chose: [],
       hati: [],
-      kv: [],
+      kv: []
     };
   },
   watch: {
@@ -296,8 +300,7 @@ export default {
       } else if (this.home == "22") {
         this.kv = [];
         this.kv = this.kvlen22;
-      }
-        else if (this.home == "24/3") {
+      } else if (this.home == "24/3") {
         this.kv = [];
         this.kv = this.kvlen24_3;
       } else if (this.home == "59") {
@@ -309,66 +312,65 @@ export default {
       } else if (this.home == "9") {
         this.kv = [];
         this.kv = this.kvmay9;
-      } 
-       else if (this.home == "9/1") {
+      } else if (this.home == "9/1") {
         this.kv = [];
         this.kv = this.kvmay9_1;
-      } 
-       else if (this.home == "16") {
+      } else if (this.home == "16") {
         this.kv = [];
         this.kv = this.kvmay16;
-      } 
-       else if (this.home == "3") {
+      } else if (this.home == "3") {
         this.kv = [];
         this.kv = this.kvmir3;
-      } 
-      else if (this.home == "4") {
+      } else if (this.home == "4") {
         this.kv = [];
         this.kv = this.kvmir4;
-      } 
-      else if (this.home == "4/1") {
+      } else if (this.home == "4/1") {
         this.kv = [];
         this.kv = this.kvmir4_1;
-      } 
-      else if (this.home == "6") {
+      } else if (this.home == "6") {
         this.kv = [];
         this.kv = this.kvmir6;
-      } 
-       else if (this.home == "14") {
+      } else if (this.home == "14") {
         this.kv = [];
         this.kv = this.kvguba14;
-      } 
-       else if (this.home == "15") {
+      } else if (this.home == "15") {
         this.kv = [];
         this.kv = this.kvguba15;
-      } 
-       else if (this.home == "16") {
+      } else if (this.home == "16") {
         this.kv = [];
         this.kv = this.kvguba16;
-      } 
-       else if (this.home == "18") {
+      } else if (this.home == "18") {
         this.kv = [];
         this.kv = this.kvguba18;
-      } 
-        else if (this.home == "1") {
+      } else if (this.home == "1") {
         this.kv = [];
         this.kv = this.kvcheh1;
-      } 
-        else if (this.home == "9") {
+      } else if (this.home == "9") {
         this.kv = [];
         this.kv = this.kvcheh9;
-      } 
-      else {
+      } else {
         this.kv = [];
       }
     },
-  methods: {
-    change() {
-      this.showInfo = !this.showInfo;
+    methods: {
+      change() {
+        this.showInfo = !this.showInfo;
+        axios
+          .post("server:5000/api/getPaymentInfo", {
+            street: "МИРА",
+            house: "55/2",
+            flat: "801"
+          })
+          .then(response => {
+            alert(response.data);
+          })
+          .catch(error => {
+            alert(error);
+          });
+      }
     }
-  },
-  },
-  };
+  }
+};
 </script>
 
 <style scoped>

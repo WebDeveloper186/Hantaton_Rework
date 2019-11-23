@@ -36,6 +36,7 @@
             }"
             :left="point.left"
             :src="point.icon"
+            @click="showInfo(point.index)"
           />
         </li>
       </ul>
@@ -55,15 +56,65 @@
           <p>{{ icon.name }}</p>
         </li>
       </ul>
-      <button class="btn btn-link" @click="show">Test popup</button>
+    </div>
+    <div class="popup" v-if="showPopup == true" style="width:250px">
+      <form id="order">
+        <div v-if="test == false">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Ваше имя</label>
+            <input class="form-control" v-model="name" />
+
+            <label for="exampleInputEmail1">Описание проблемы</label>
+            <input class="form-control" v-model="description" />
+          </div>
+          <button type="text" class="btn btn-primary" @click="save">
+            Отправить
+          </button>
+          <button
+            type="text"
+            class="btn btn-danger"
+            style="margin-left: 60px"
+            @click="closess"
+          >
+            X
+          </button>
+        </div>
+
+        <div class="info" v-else style="z-index:999; left:35%; top:50%">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Ваше имя</label>
+            <input class="form-control" readonly v-model="info[0].name" />
+
+            <label for="exampleInputEmail1">Описание проблемы</label>
+            <input
+              class="form-control"
+              readonly
+              v-model="info[0].description"
+            />
+          </div>
+          <button type="text" class="btn btn-primary" @click="close">
+            Закрыть
+          </button>
+        </div>
+      </form>
     </div>
     <div
-      class="popup"
-      style="position: absolute; top: 25%; left: 50%; z-index:999"
-      v-if="showPopup == true"
+      v-if="alert == true"
+      class="alert alert-danger"
+      style="z-index:999; position: absolute; top:0; left:34%; width: 35%; height: 72px"
+      role="alert"
     >
-      <h1>123</h1>
-      <span>test</span>
+      <p style="padding-left:45px">
+        Выбирете тип иконки, которую хотите разместить
+      </p>
+      <div
+        class="btn btn-link"
+        style="color:red; margin-bottom:5px;
+    font-size: 25px;"
+        @click="alert = false"
+      >
+        X
+      </div>
     </div>
   </div>
 </template>
@@ -73,35 +124,34 @@ export default {
   name: "Map",
   data() {
     return {
+      test: false,
+      alert: false,
+      pop: false,
       showPopup: false,
       points: [],
       topCoords: 0,
       icons: this.$store.state.icons,
       size: 40,
       select: undefined,
-      index: 0
+      index: 0,
+      name: "",
+      description: "",
+      info: []
     };
   },
   methods: {
     click(e) {
       var image = document.getElementById("marker");
       if (this.select != undefined) {
+        this.show();
         image.height = this.size;
         image.width = this.size;
         image.style.display = "none";
         image.style.position = "absolute";
         image.style.top = e.clientY - this.size / 2 + "px";
         image.style.left = e.clientX - this.size / 2 + "px";
-        this.index += 1;
-        var object = {
-          index: this.index,
-          top: image.style.top,
-          left: image.style.left,
-          icon: this.select
-        };
-        this.points.push(object);
       } else {
-        alert("Выбирете тип иконки, которую хотите разместить");
+        this.alert = true;
       }
     },
     changeIcon(icon) {
@@ -111,15 +161,43 @@ export default {
     },
     show() {
       this.showPopup = true;
-      var block = document.getElementsByClassName("map");
-      document.body.style.overflow = "hidden";
-      block.style.filter = "blur(5px)";
+    },
+    save() {
+      var image = document.getElementById("marker");
+      this.pop = true;
+      this.showPopup = false;
+      this.index += 1;
+      var object = {
+        index: this.index,
+        top: image.style.top,
+        left: image.style.left,
+        icon: this.select,
+        name: this.name,
+        description: this.description
+      };
+      this.points.push(object);
+      this.pop = false;
+      this.name = "";
+      this.description = "";
+    },
+    showInfo(index) {
+      this.info.push(this.points[index - 1]);
+      this.test = true;
+    },
+    close() {
+      this.test = false;
+    },
+    closess() {
+      document.getElementsByClassName("popup").style.display = "none";
     }
   }
 };
 </script>
 
 <style scoped>
+* {
+  text-decoration: none;
+}
 img {
   position: relative;
 }
@@ -218,5 +296,15 @@ nav {
 nav ul {
   list-style: none;
   margin: 0;
+}
+.popup {
+  padding: 25px;
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  z-index: 999;
+  width: 200px;
+  border-radius: 10px;
+  background-color: lightgray;
 }
 </style>
