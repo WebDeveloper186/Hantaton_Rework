@@ -4,6 +4,7 @@ import Payment from '@/components/Payment'
 import Index from '@/components/Index'
 import MapMain from '@/components/Map'
 import Contacts from '@/components/Contacts'
+import Test from '@/components/Test'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ export default new VueRouter({
             path: '/contacts',
             component: Contacts,
             name: 'Contacts'
+        },
+        {
+            path: '/test',
+            component: Test,
+            name: 'Test'
         }
     ]
 })
