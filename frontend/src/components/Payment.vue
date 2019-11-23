@@ -1,9 +1,11 @@
 <template>
-  <div>list</div>
+  <div>payment</div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Payment"
+};
 </script>
 
 <style></style>
