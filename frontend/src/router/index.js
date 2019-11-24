@@ -14,7 +14,7 @@ export default new VueRouter({
             path: "/",
             name: "Index",
             component: Index
-        }, 
+        },
         {
             path: '/payment',
             component: Payment,

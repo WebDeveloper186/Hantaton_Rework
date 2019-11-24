@@ -8,7 +8,6 @@ app = Flask(__name__)
 flask_cors.CORS(app)
 
 
-
 def _float(value):
     if value:
         return float(value['value'].replace('\xa0', '').replace(',', '.'))
@@ -103,13 +102,16 @@ def parse(street, house, flat):
                                                            "payed_peni":account_payed_peni})
     return str(result)
 
-@app.route('/api/getPaymentInfo')
+
+
+@app.route('/api/getPaymentInfo', methods=['POST'])
 def payment_info():
     content = request.json
     street = content['street']
     house = content['house']
     flat = content['flat']
     return parse(street, house, flat)
+
 
 if __name__ == '__main__':
     app.config['JSON_AS_ASCII'] = False

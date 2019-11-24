@@ -46,11 +46,7 @@
     <div class="icons">
       <ul v-for="icon in icons" :key="icons.indexOf(icon)">
         <li style="inline-block">
-          <button
-            type="button"
-            class="btn btn-link"
-            @click="changeIcon(icon.icon)"
-          >
+          <button type="button" class="btn btn-link" @click="changeIcon(icon.icon)">
             <img :src="icon.icon" class="icon" />
           </button>
           <p>{{ icon.name }}</p>
@@ -67,34 +63,19 @@
             <label for="exampleInputEmail1">Описание проблемы</label>
             <input class="form-control" v-model="description" />
           </div>
-          <button type="text" class="btn btn-primary" @click="save">
-            Отправить
-          </button>
-          <button
-            type="text"
-            class="btn btn-danger"
-            style="margin-left: 60px"
-            @click="closess"
-          >
-            X
-          </button>
+          <button type="text" class="btn btn-primary" @click="save">Отправить</button>
+          <button type="text" class="btn btn-danger" style="margin-left: 60px" @click="closess">X</button>
         </div>
 
         <div class="info" v-else style="z-index:999; left:35%; top:50%">
           <div class="form-group">
-            <label for="exampleInputEmail1">Ваше имя</label>
+            <label for="exampleInputEmail1">Имя пользователя</label>
             <input class="form-control" readonly v-model="info[0].name" />
 
             <label for="exampleInputEmail1">Описание проблемы</label>
-            <input
-              class="form-control"
-              readonly
-              v-model="info[0].description"
-            />
+            <input class="form-control" readonly v-model="info[0].description" />
           </div>
-          <button type="text" class="btn btn-primary" @click="close">
-            Закрыть
-          </button>
+          <button type="text" class="btn btn-primary" @click="close">Закрыть</button>
         </div>
       </form>
     </div>
@@ -104,22 +85,19 @@
       style="z-index:999; position: absolute; top:0; left:34%; width: 35%; height: 72px"
       role="alert"
     >
-      <p style="padding-left:45px">
-        Выбирете тип иконки, которую хотите разместить
-      </p>
+      <p style="padding-left:45px">Выбирете тип иконки, которую хотите разместить</p>
       <div
         class="btn btn-link"
         style="color:red; margin-bottom:5px;
     font-size: 25px;"
         @click="alert = false"
-      >
-        X
-      </div>
+      >X</div>
     </div>
   </div>
 </template>
 
 <script>
+// import axios from "axios";
 export default {
   name: "Map",
   data() {
@@ -175,6 +153,13 @@ export default {
         name: this.name,
         description: this.description
       };
+      // axios.post("http://127.0.0.1:5000/api/markers", {
+      //   top: object.top,
+      //   left: object.left,
+      //   icon: object.icon,
+      //   name: object.name,
+      //   description: object.description
+      // });
       this.points.push(object);
       this.pop = false;
       this.name = "";

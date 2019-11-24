@@ -19,191 +19,178 @@
         </ul>
       </nav>
     </header>
-
-    <form>
-      <div
-        v-if="showInfo == false"
-        class="login"
-        style="margin: 200px;padding-left: 400px;"
-      >
-        <div
-          class="col-3"
-          style="background-color: gray;border-radius: 33px; padding-bottom: 15px"
-        >
-          <div class="form-group">
-            <label for="exampleFormControlSelect1"
-              >Выберите населенный пункт</label
-            >
-            <select
-              class="form-control"
-              id="exampleFormControlSelect1"
-              v-model="select"
-            >
-              <option></option>
-              <option>Сургут</option>
-              <option>Белый Яр</option>
-              <option>Лангепас</option>
-              <option>Лянтор</option>
-              <option>Солнечный</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Введите адрес</label>
-            <select
-              class="form-control"
-              id="exampleInputEmail1"
-              v-model="adress"
-            >
-              <option v-for="item in chose" :key="chose.indexOf(item)">{{
-                item
-              }}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Введите дом</label>
-            <select class="form-control" id="exampleInputEmail1" v-model="home">
-              <option v-for="item in hati" :key="hati.indexOf(item)">{{
-                item
-              }}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Введите квартиру</label>
-            <select class="form-control" id="exampleInputEmail1">
-              <option v-for="item in kv" :key="kv.indexOf(item)">{{
-                item
-              }}</option>
-            </select>
-          </div>
-          <button
-            type="text"
-            class="btn btn-primary"
-            style="margin-left: 30px"
-            @click="change()"
-          >
-            Узнать платеж
-          </button>
+    <div v-if="showInfo == false" class="login" style="margin: 200px;padding-left: 400px;">
+      <div class="col-3" style="background-color: gray;border-radius: 33px; padding-bottom: 15px">
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Выберите населенный пункт</label>
+          <select class="form-control" id="exampleFormControlSelect1" v-model="select">
+            <option></option>
+            <option>Сургут</option>
+            <option>Белый Яр</option>
+            <option>Лангепас</option>
+            <option>Лянтор</option>
+            <option>Солнечный</option>
+          </select>
         </div>
-      </div>
-      <div v-else class="login" style="margin: 200px;padding-left: 400px;">
-        <div
-          class="col-8"
-          style="background-color: gray;border-radius: 33px; padding-bottom: 15px"
-        >
-          <div class="form-group"></div>
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Услуги ЖКУ:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Оплата за социальный наем:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Оплата взноса на кап.ремонт:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Оплата за паркинг:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Обслуживание системы наблюдения:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Обслуживание шлагбаумов:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Обращение с ТКО:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Отопление:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Электроснабжение:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Тепловая энергия для ГВС:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="inputState">Холодная вода для ГВС:</label>
-            </div>
-            <div class="form-group col-md-3">
-              <div id="result">0 руб.</div>
-            </div>
-          </div>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            style="margin-left: 190px"
-          >
-            Оплатить
-          </button>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Введите адрес</label>
+          <select class="form-control" id="exampleInputEmail1" v-model="adress">
+            <option v-for="item in chose" :key="chose.indexOf(item)">
+              {{
+              item
+              }}
+            </option>
+          </select>
         </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Введите дом</label>
+          <select class="form-control" id="exampleInputEmail1" v-model="home">
+            <option v-for="item in hati" :key="hati.indexOf(item)">
+              {{
+              item
+              }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Введите квартиру</label>
+          <select class="form-control" id="exampleInputEmail1">
+            <option v-for="item in kv" :key="kv.indexOf(item)">
+              {{
+              item
+              }}
+            </option>
+          </select>
+        </div>
+        <button
+          type="text"
+          class="btn btn-primary"
+          style="margin-left: 30px"
+          @click="showInfo = true"
+        >Узнать платеж</button>
       </div>
-    </form>
+    </div>
+    <div v-else class="login" style="margin: 200px;padding-left: 400px;">
+      <div class="col-8" style="background-color: gray;border-radius: 33px; padding-bottom: 15px">
+        <div class="form-group"></div>
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Услуги ЖКУ:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">10000 руб.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Оплата за социальный наем:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">150 руб.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Оплата взноса на кап.ремонт:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">27.54 руб.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Оплата за паркинг:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">0 руб.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Обслуживание системы наблюдения:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">0 руб.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Обслуживание шлагбаумов:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">0 руб.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Обращение с ТКО:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">0 руб.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Отопление:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">870 руб.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Электроснабжение:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">1548 руб.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Тепловая энергия для ГВС:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">0 руб.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="inputState">Холодная вода для ГВС:</label>
+          </div>
+          <div class="form-group col-md-3">
+            <div id="result">0 руб.</div>
+          </div>
+        </div>
+        <form
+          id="payment"
+          name="payment"
+          method="post"
+          action="https://sci.interkassa.com/"
+          enctype="utf-8"
+        >
+          <input type="hidden" name="ik_co_id" value="5dd8276a1ae1bd52048b456a" />
+          <input type="hidden" name="ik_pm_no" value="ID_4233" />
+          <input type="hidden" name="ik_am" value="12595.54" />
+          <input type="hidden" name="ik_cur" value="RUB" />
+          <input type="hidden" name="ik_desc" value="Event Description" />
+          <input type="submit" class="btn btn-info" value="Оплатить" />
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "Payment",
   data() {
@@ -350,25 +337,6 @@ export default {
         this.kv = this.kvcheh9;
       } else {
         this.kv = [];
-      }
-    },
-    created() {
-      axios
-        .post("127.0.0.1:5000/api/getPaymentInfo", {
-          street: "МИРА",
-          house: "55/2",
-          flat: "801"
-        })
-        .then(response => {
-          alert(response.data);
-        })
-        .catch(error => {
-          alert(error);
-        });
-    },
-    methods: {
-      change() {
-        this.showInfo = true;
       }
     }
   }
